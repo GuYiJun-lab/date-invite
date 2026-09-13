@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
 <title>一份约会邀请</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=ZCOOL+KuaiLe&display=swap');
@@ -320,6 +322,10 @@ body::before{
     </div>
     <div class="field-lab">具体时间</div>
     <div class="chip-row" id="timeRow"></div>
+    <div class="date-input" style="max-width:220px;margin-top:10px;">
+      <input id="timeField" type="time" step="300">
+      <span style="font-size:13px;color:var(--pink-darker);white-space:nowrap;">自己选</span>
+    </div>
     <div class="field-lab">具体地点</div>
     <div class="chip-row" id="placeRow"></div>
     <div class="place-input">
@@ -364,7 +370,7 @@ body::before{
     {nm:'散步',ico:'🚶'},{nm:'逛展',ico:'🖼️'},{nm:'你来定',ico:'🎁'}
   ];
   var actSel='',dateSel='',timeSel='',placeSel='';
-  var times=['12:00','14:00','15:30','17:00','19:00','20:00'];
+  var times=['12:00','13:00','14:00','15:30','17:00','18:00','19:00','20:00'];
   var places=['你来定','我去找你'];
   var calY=new Date().getFullYear(),calM=new Date().getMonth();
   var noCount=0;
@@ -480,16 +486,26 @@ body::before{
     }
   }
   var timeRow=document.getElementById('timeRow');
+  var timeField=document.getElementById('timeField');
   times.forEach(function(t){
     var b=document.createElement('button');
     b.type='button';b.className='mini-chip';b.textContent=t;
     b.onclick=function(){
       timeSel=t;
+      timeField.value=t;
       timeRow.querySelectorAll('.mini-chip').forEach(function(x){x.classList.remove('sel');});
       b.classList.add('sel');
       tryUnlockMeet();
     };
     timeRow.appendChild(b);
+  });
+  timeField.addEventListener('input',function(){
+    if(!this.value){timeSel='';tryUnlockMeet();return;}
+    timeSel=this.value.slice(0,5);
+    timeRow.querySelectorAll('.mini-chip').forEach(function(x){
+      x.classList.toggle('sel', x.textContent===timeSel);
+    });
+    tryUnlockMeet();
   });
   var placeRow=document.getElementById('placeRow');
   places.forEach(function(t){
@@ -595,6 +611,7 @@ body::before{
     document.querySelectorAll('#timeRow .mini-chip, #placeRow .mini-chip').forEach(function(x){x.classList.remove('sel');});
     document.getElementById('dateField').value='';
     document.getElementById('placeField').value='';
+    document.getElementById('timeField').value='';
     actConfirmBtn.classList.add('lock-btn');actConfirmBtn.classList.remove('pbtn');
     actConfirmBtn.innerHTML='就决定是这个了 <span class="lock-icon">🔒</span>';actConfirmBtn.disabled=true;
     dateConfirmBtn.classList.add('lock-btn');dateConfirmBtn.classList.remove('pbtn');
