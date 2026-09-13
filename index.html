@@ -55,7 +55,11 @@ body::before{
   position:relative;z-index:1;height:100%;width:100%;
   display:flex;align-items:center;justify-content:center;flex-direction:column;
   padding:20px 16px;text-align:center;
+  overflow-y:auto;
 }
+#s4 .pixel-frame{width:120px;height:100px;margin-bottom:8px;}
+#s4 .gif-img{width:100px;}
+#s4 .card{padding:12px 16px;}
 .card{
   background:transparent;
   border:none;
@@ -175,6 +179,21 @@ body::before{
 .cal-grid button{border:none;background:none;font-size:13px;padding:6px 0;cursor:pointer;color:var(--ink);font-family:inherit;border-radius:0;}
 .cal-grid button.today{color:var(--pink-darker);font-weight:bold;}
 .cal-grid button.pick{background:var(--pink-dark);color:#fff;font-weight:bold;}
+.field-lab{font-size:13px;color:var(--pink-darker);margin:16px 0 8px;font-weight:bold;}
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.mini-chip{
+  border:2px solid var(--pink-dark);background:var(--white);color:var(--pink-darker);
+  font-family:inherit;font-size:14px;padding:6px 12px;cursor:pointer;
+}
+.mini-chip.sel{background:var(--pink-dark);color:#fff;}
+.place-input{
+  border:3px solid var(--pink-darker);background:var(--white);
+  padding:10px 14px;margin:8px auto 0;width:100%;max-width:280px;
+}
+.place-input input{
+  border:none;outline:none;font-size:15px;color:var(--pink-darker);
+  width:100%;background:transparent;font-family:inherit;text-align:center;
+}
 
 /* 复古窗口情书 */
 .letter-wrap{
@@ -288,7 +307,7 @@ body::before{
   <div class="card">
     <div class="pixel-frame"><img class="gif-img" src="data:image/gif;base64,R0lGODlh8ADwANUxAPysrO/v77+/v4CAgBAQEEBAQDAwMJ+fn8/PzyAgIGBgYI+Pj6+vr1BQUN/f33BwcD8rK/3Bwf/19f7W1v3Ly/y2tvyxsf7v7/7b2/7q6l9BQRALC//6+n5WVv3Q0P7g4P7l5a12diAWFr2Bgd2Xl/28vJ5sbM2MjOyhoS8gIG5LS/3Gxk82Nm9lZY5hYf///wAAAP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh/wtYTVAgRGF0YVhNUDw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQyIDc5LjE2MDkyNCwgMjAxNy8wNy8xMy0wMTowNjozOSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjZCOERBQzc1RjU2MzExRTlBNUJDRkYzRTE3MEVEREEzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjZCOERBQzc2RjU2MzExRTlBNUJDRkYzRTE3MEVEREEzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NkI4REFDNzNGNTYzMTFFOUE1QkNGRjNFMTcwRUREQTMiIHN0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" alt="可爱动图"></div>
     <h1 class="title">挑一天见面吧</h1>
-    <p class="subtitle">选一个你方便的日子，我来安排。</p>
+    <p class="subtitle">把日期、时间和地点都定下来。</p>
     <div class="date-wrap">
       <div class="date-input">
         <input id="dateField" type="text" placeholder="点日历选日期" readonly>
@@ -298,6 +317,13 @@ body::before{
         <div class="cal-hd"><button class="cal-arrow" id="calPrev">‹</button><b id="calTitle">2026-08</b><button class="cal-arrow" id="calNext">›</button></div>
         <div class="cal-grid" id="calGrid"></div>
       </div>
+    </div>
+    <div class="field-lab">具体时间</div>
+    <div class="chip-row" id="timeRow"></div>
+    <div class="field-lab">具体地点</div>
+    <div class="chip-row" id="placeRow"></div>
+    <div class="place-input">
+      <input id="placeField" type="text" maxlength="40" placeholder="也可以自己写，比如某某咖啡店">
     </div>
     <div class="btn-wrap">
       <button class="pbtn lock-btn" id="dateConfirm">继续 →</button>
@@ -317,7 +343,7 @@ body::before{
         <p>不是因为节日才想见你。</p>
         <p>就是想认真约你一次。</p>
         <p>出去走走，吃点东西，聊聊天。</p>
-        <p>时间你定，地方我来想。</p>
+        <p>时间地点你定，我准时到。</p>
         <p>等你回我，我们就敲定。</p>
         <p class="win95-sign">期待你的消息，<br>小顾</p>
       </div>
@@ -337,7 +363,9 @@ body::before{
     {nm:'吃饭',ico:'🍽️'},{nm:'看电影',ico:'🎬'},{nm:'喝咖啡',ico:'☕'},
     {nm:'散步',ico:'🚶'},{nm:'逛展',ico:'🖼️'},{nm:'你来定',ico:'🎁'}
   ];
-  var actSel='',dateSel='';
+  var actSel='',dateSel='',timeSel='',placeSel='';
+  var times=['12:00','14:00','15:30','17:00','19:00','20:00'];
+  var places=['你来定','我去找你'];
   var calY=new Date().getFullYear(),calM=new Date().getMonth();
   var noCount=0;
   var noHints=['宝贝拜托 🥺','还是选好啦！','不要这样啦','我要哭了……','认真考虑一下嘛'];
@@ -439,6 +467,48 @@ body::before{
 
   var week=['日','一','二','三','四','五','六'];
   var dateConfirmBtn=document.getElementById('dateConfirm');
+  function tryUnlockMeet(){
+    placeSel=document.getElementById('placeField').value.trim();
+    if(dateSel&&timeSel&&placeSel){
+      dateConfirmBtn.classList.remove('lock-btn');
+      dateConfirmBtn.classList.add('pbtn');
+      dateConfirmBtn.innerHTML='继续 →';
+      dateConfirmBtn.disabled=false;
+    }else{
+      dateConfirmBtn.classList.add('lock-btn');
+      dateConfirmBtn.disabled=true;
+    }
+  }
+  var timeRow=document.getElementById('timeRow');
+  times.forEach(function(t){
+    var b=document.createElement('button');
+    b.type='button';b.className='mini-chip';b.textContent=t;
+    b.onclick=function(){
+      timeSel=t;
+      timeRow.querySelectorAll('.mini-chip').forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');
+      tryUnlockMeet();
+    };
+    timeRow.appendChild(b);
+  });
+  var placeRow=document.getElementById('placeRow');
+  places.forEach(function(t){
+    var b=document.createElement('button');
+    b.type='button';b.className='mini-chip';b.textContent=t;
+    b.onclick=function(){
+      document.getElementById('placeField').value=t;
+      placeRow.querySelectorAll('.mini-chip').forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');
+      tryUnlockMeet();
+    };
+    placeRow.appendChild(b);
+  });
+  document.getElementById('placeField').addEventListener('input',function(){
+    placeRow.querySelectorAll('.mini-chip').forEach(function(x){
+      x.classList.toggle('sel', x.textContent===this.value.trim());
+    },this);
+    tryUnlockMeet();
+  });
   function renderCal(){
     var y=calY,m=calM;
     document.getElementById('calTitle').textContent=(y+'-'+String(m+1).padStart(2,'0'));
@@ -461,10 +531,7 @@ body::before{
           dateSel=yy+'-'+String(mm+1).padStart(2,'0')+'-'+String(dd).padStart(2,'0');
           document.getElementById('dateField').value=yy+'年'+ (mm+1) +'月'+dd+'日';
           renderCal();calBox.style.display='none';
-          dateConfirmBtn.classList.remove('lock-btn');
-          dateConfirmBtn.classList.add('pbtn');
-          dateConfirmBtn.innerHTML='继续 →';
-          dateConfirmBtn.disabled=false;
+          tryUnlockMeet();
         };
       })(d,y,m);
       g.appendChild(b);
@@ -472,23 +539,25 @@ body::before{
   }
   renderCal();
   dateConfirmBtn.disabled=true;
-  dateConfirmBtn.onclick=function(){if(dateSel){show('s5');}};
+  dateConfirmBtn.onclick=function(){if(dateSel&&timeSel&&placeSel){show('s5');}};
 
   /* ---- 5 发送 ---- */
   var sendBtn=document.getElementById('sendBtn');
   var sendStatus=document.getElementById('sendStatus');
   sendBtn.onclick=function(){
-    var txt='想和你一起'+actSel+'，约在 '+dateSel+' 见面。';
+    var txt='想和你一起'+actSel+'，约在 '+dateSel+' '+timeSel+'，地点：'+placeSel;
     sendBtn.disabled=true;sendBtn.textContent='发送中…';
     sendStatus.className='send-status';sendStatus.textContent='正在发送…';
     var payload={
-      _subject:'【约会邀请】对方选好了：'+actSel+' @ '+dateSel,
+      _subject:'【约会邀请】'+actSel+' @ '+dateSel+' '+timeSel+' · '+placeSel,
       _captcha:'false',
       _template:'table',
       _honey:'',
       name:'约会回执',
       activity:actSel,
       date:dateSel,
+      time:timeSel,
+      place:placeSel,
       message:txt
     };
     fetch(FORM_ENDPOINT,{
@@ -508,7 +577,7 @@ body::before{
       sendBtn.style.display='none';confetti();
     }).catch(function(){
       sendStatus.className='send-status send-fail';
-      var mailto='mailto:'+RECEIVE_EMAIL+'?subject='+encodeURIComponent('【待确认】想约'+actSel)+'&body='+encodeURIComponent(txt);
+      var mailto='mailto:'+RECEIVE_EMAIL+'?subject='+encodeURIComponent('【待确认】想约'+actSel+' '+dateSel+' '+timeSel)+'&body='+encodeURIComponent(txt);
       sendStatus.innerHTML='没发送成功。请确认是用网址打开本页（不要双击本地文件）。也可以点这里用邮箱发给我 👉 <a href="'+mailto+'">点此发送</a>';
       sendBtn.disabled=false;sendBtn.textContent='再试一次';
     });
@@ -521,9 +590,11 @@ body::before{
 
   /* 再看一次 */
   document.getElementById('replayBtn').onclick=function(){
-    actSel='';dateSel='';
+    actSel='';dateSel='';timeSel='';placeSel='';
     document.querySelectorAll('.act-opt').forEach(function(x){x.classList.remove('sel');});
+    document.querySelectorAll('#timeRow .mini-chip, #placeRow .mini-chip').forEach(function(x){x.classList.remove('sel');});
     document.getElementById('dateField').value='';
+    document.getElementById('placeField').value='';
     actConfirmBtn.classList.add('lock-btn');actConfirmBtn.classList.remove('pbtn');
     actConfirmBtn.innerHTML='就决定是这个了 <span class="lock-icon">🔒</span>';actConfirmBtn.disabled=true;
     dateConfirmBtn.classList.add('lock-btn');dateConfirmBtn.classList.remove('pbtn');
